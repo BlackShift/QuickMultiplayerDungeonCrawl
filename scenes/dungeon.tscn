@@ -1,0 +1,96 @@
+[gd_scene load_steps=13 format=3 uid="uid://kaqpa0b1scyq"]
+
+[ext_resource type="Script" path="res://scenes/dungeon.gd" id="1_c1lvx"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_hcf2b"]
+[ext_resource type="PackedScene" uid="uid://doj2ak5klioyv" path="res://scenes/example_room.tscn" id="3_xatxy"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_jc1gi"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_vy1ij"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_3f6cm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a177g"]
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tkgbq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_158ev"]
+sky_material = SubResource("ProceduralSkyMaterial_tkgbq")
+
+[sub_resource type="Environment" id="Environment_g710x"]
+background_mode = 2
+sky = SubResource("Sky_158ev")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Resource" id="Resource_2t5hy"]
+script = ExtResource("8_vy1ij")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="Resource" id="Resource_3ylw8"]
+script = ExtResource("9_3f6cm")
+cull_mask = 524287
+h_offset = 0.0
+v_offset = 0.0
+projection = 0
+fov = 75.0
+size = 1.0
+frustum_offset = Vector2(0, 0)
+near = 0.05
+far = 4000.0
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_c1lvx")
+log_label_settings = SubResource("LabelSettings_a177g")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g710x")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766567, 0.642163, 0, -0.642163, 0.766567, 0, 5.42, 6.47)
+cull_mask = 524287
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+script = ExtResource("2_hcf2b")
+
+[node name="example_room" parent="." instance=ExtResource("3_xatxy")]
+
+[node name="CharacterContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="UI_Layer" type="CanvasLayer" parent="."]
+
+[node name="BattleLog" type="Control" parent="UI_Layer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 186.0
+offset_bottom = 27.0
+
+[node name="LogContainer" type="VBoxContainer" parent="UI_Layer/BattleLog"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerCam" type="Node3D" parent="." node_paths=PackedStringArray("follow_target", "look_at_target")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.766567, 0.642163, 0, -0.642163, 0.766567, 0, 5.42, 6.47)
+script = ExtResource("7_jc1gi")
+follow_mode = 2
+follow_target = NodePath("../CharacterContainer")
+look_at_mode = 2
+look_at_target = NodePath("../CharacterContainer")
+tween_resource = SubResource("Resource_2t5hy")
+inactive_update_mode = 1
+camera_3d_resource = SubResource("Resource_3ylw8")
+follow_offset = Vector3(0, 5.42, 6.47)

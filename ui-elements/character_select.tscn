@@ -1,0 +1,146 @@
+[gd_scene load_steps=9 format=3 uid="uid://b6yv2mx81lo0q"]
+
+[ext_resource type="PackedScene" uid="uid://dv3e0wwe4rt7n" path="res://ui-elements/character_portrait.tscn" id="1_b2yy7"]
+[ext_resource type="Script" path="res://ui-elements/character_select.gd" id="1_x7nog"]
+[ext_resource type="PackedScene" uid="uid://chlcmqubv6drq" path="res://characters/barbarian.tscn" id="3_kcy4l"]
+[ext_resource type="PackedScene" uid="uid://dv1blrklhrrr2" path="res://characters/knight.tscn" id="4_j5p5a"]
+[ext_resource type="PackedScene" uid="uid://2vk2k8yyi6ic" path="res://characters/mage.tscn" id="5_jsrty"]
+[ext_resource type="PackedScene" uid="uid://dd7n6kfpoekyo" path="res://characters/rogue.tscn" id="6_q8l63"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbsj"]
+draw_center = false
+
+[sub_resource type="Theme" id="Theme_c2un5"]
+Button/styles/hover = SubResource("StyleBoxFlat_ewbsj")
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme = SubResource("Theme_c2un5")
+script = ExtResource("1_x7nog")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(700, 300)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.196181
+anchor_top = 0.268519
+anchor_right = 0.803819
+anchor_bottom = 0.731481
+offset_left = 344.0
+offset_top = 150.0
+offset_right = -344.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Barbarian"
+horizontal_alignment = 1
+
+[node name="BarbPortrait" parent="HBoxContainer/VBoxContainer" instance=ExtResource("1_b2yy7")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+character = ExtResource("3_kcy4l")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/BarbPortrait"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Knight"
+horizontal_alignment = 1
+
+[node name="KnightPortrait" parent="HBoxContainer/VBoxContainer2" instance=ExtResource("1_b2yy7")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+character = ExtResource("4_j5p5a")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/KnightPortrait"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Mage"
+horizontal_alignment = 1
+
+[node name="MagePortrait" parent="HBoxContainer/VBoxContainer3" instance=ExtResource("1_b2yy7")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+character = ExtResource("5_jsrty")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer3/MagePortrait"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer4"]
+layout_mode = 2
+text = "Rogue"
+horizontal_alignment = 1
+
+[node name="RoguePortrait" parent="HBoxContainer/VBoxContainer4" instance=ExtResource("1_b2yy7")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+character = ExtResource("6_q8l63")
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer4/RoguePortrait"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/BarbPortrait/Button" to="." method="_on_barb_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer2/KnightPortrait/Button" to="." method="_on_knight_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer3/MagePortrait/Button" to="." method="_on_mage_pressed"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer4/RoguePortrait/Button" to="." method="_on_rogue_pressed"]
