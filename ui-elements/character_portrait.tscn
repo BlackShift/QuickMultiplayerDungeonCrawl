@@ -41,3 +41,4 @@ size = Vector2i(1132, 628)
 render_target_update_mode = 4
 
 [node name="CharacterPreview" parent="PanelContainer/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_gkd58")]
+hide_equip = true

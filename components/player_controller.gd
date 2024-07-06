@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := Vector3(input_dir.x, 0, input_dir.y)
-	if direction:
+	if direction and get_window().has_focus():
 		player.velocity.x = direction.x * player.SPEED
 		player.velocity.z = direction.z * player.SPEED
 		player.look_at(player.position + direction,Vector3.UP,true)

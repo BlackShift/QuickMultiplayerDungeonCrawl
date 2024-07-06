@@ -1,12 +1,12 @@
 class_name CharacterPreview extends Node3D
 
 @export var hide_equip:bool = true
-var preview:PackedScene:
+var preview:Game.ROLE:
 	set(value):
 		preview = value
 		if preview:
 			character = generic_character.new()
-			character.character_scene = preview
+			character.character_role = preview
 			character.hide_all_equipment = hide_equip
 			character_container.add_child(character)
 

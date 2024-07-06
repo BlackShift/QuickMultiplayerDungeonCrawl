@@ -51,6 +51,7 @@ func _on_join_pressed() -> void:
 	if !destination_server:
 		return
 	NetworkSystem.join_server(destination_server)
+	Game.transition_dungeon()
 	pass # Replace with function body.
 
 func _validate_server_input() -> void:
@@ -95,10 +96,11 @@ func _on_ping_update(s:ServerInfo,ping_time:int) -> void:
 		return
 	if selected_server == res:
 		ping.text = String.num(ping_time)
+		players.text = String.num(s.used_slots)
 
 func _on_host_pressed() -> void:
 	NetworkSystem.host_server()
-	Game.transition_char_select()
+	Game.transition_dungeon()
 	pass # Replace with function body.
 
 

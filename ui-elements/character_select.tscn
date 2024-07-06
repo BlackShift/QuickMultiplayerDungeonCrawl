@@ -1,11 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6yv2mx81lo0q"]
+[gd_scene load_steps=5 format=3 uid="uid://b6yv2mx81lo0q"]
 
 [ext_resource type="PackedScene" uid="uid://dv3e0wwe4rt7n" path="res://ui-elements/character_portrait.tscn" id="1_b2yy7"]
 [ext_resource type="Script" path="res://ui-elements/character_select.gd" id="1_x7nog"]
-[ext_resource type="PackedScene" uid="uid://chlcmqubv6drq" path="res://characters/barbarian.tscn" id="3_kcy4l"]
-[ext_resource type="PackedScene" uid="uid://dv1blrklhrrr2" path="res://characters/knight.tscn" id="4_j5p5a"]
-[ext_resource type="PackedScene" uid="uid://2vk2k8yyi6ic" path="res://characters/mage.tscn" id="5_jsrty"]
-[ext_resource type="PackedScene" uid="uid://dd7n6kfpoekyo" path="res://characters/rogue.tscn" id="6_q8l63"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewbsj"]
 draw_center = false
@@ -53,7 +49,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-character = ExtResource("3_kcy4l")
+character = 1
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/BarbPortrait"]
 show_behind_parent = true
@@ -78,7 +74,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-character = ExtResource("4_j5p5a")
+character = 2
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer2/KnightPortrait"]
 show_behind_parent = true
@@ -103,7 +99,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-character = ExtResource("5_jsrty")
+character = 3
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer3/MagePortrait"]
 show_behind_parent = true
@@ -128,7 +124,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-character = ExtResource("6_q8l63")
+character = 4
 
 [node name="Button" type="Button" parent="HBoxContainer/VBoxContainer4/RoguePortrait"]
 show_behind_parent = true

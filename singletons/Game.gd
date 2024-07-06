@@ -2,7 +2,7 @@ extends Node
 
 enum STATE {NONE,MENU,MENU_SERVER,C_SELECT,GAME}
 enum ROLE {NONE,BARBARIAN,KNIGHT,MAGE,ROGUE}
-var chosen_role:ROLE = ROLE.BARBARIAN
+var chosen_role:ROLE = ROLE.NONE
 var role_scenes:Array[PackedScene] = [
 	null,
 	preload("res://characters/barbarian.tscn"),
@@ -20,10 +20,6 @@ var state:STATE = STATE.NONE:
 		var old_state:STATE = state
 		state = value
 		state_change.emit(old_state,state)
-
-func transition_char_select():
-	state = STATE.C_SELECT
-	get_tree().change_scene_to_packed(CHARACTER_SELECT)
 
 func transition_main_menu():
 	state = STATE.MENU

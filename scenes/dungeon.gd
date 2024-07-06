@@ -5,6 +5,9 @@ extends Node3D
 @export var log_label_settings:LabelSettings
 const GENERIC_CHARACTER = preload("res://scenes/generic_character.tscn")
 
+func _ready() -> void:
+	multiplayer.peer_connected.connect(player_joined)
+
 func create_battlelog_event(msg:String):
 	var l = Label.new()
 	l.text = msg
@@ -14,19 +17,29 @@ func create_battlelog_event(msg:String):
 	pass
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+@rpc("any_peer","call_local")
+func spawn_player(r : Game.ROLE, authority) -> void:
 	create_battlelog_event("Chosen Role: %s" % Game.ROLE.keys()[Game.chosen_role])
 	var c = GENERIC_CHARACTER.instantiate()
-	c.character_scene = Game.role_scenes[Game.chosen_role]
+	c.character_role = r
 	c.hide_all_equipment = true
-	var control = PlayerController.new()
-	c.add_child(control)
-	character_container.add_child(c)
-	player_cam.follow_target = c
-	player_cam.look_at_target = c
+	c.name = "player" + String.num(authority)
+	character_container.add_child(c,false,Node.INTERNAL_MODE_BACK)
+	c.set_multiplayer_authority(authority,true)
+	if multiplayer.get_unique_id() == authority:
+		var control = PlayerController.new()
+		c.add_child(control)
+		player_cam.follow_target = c
+		player_cam.look_at_target = c
 	pass # Replace with function body.
 
-
+func player_joined(id:int):
+	if Game.chosen_role != Game.STATE.NONE:
+		spawn_player.rpc_id(id,Game.chosen_role,multiplayer.get_unique_id())
+	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func _on_character_select_role_chosen(r: int) -> void:
+	spawn_player.rpc(r,multiplayer.get_unique_id())

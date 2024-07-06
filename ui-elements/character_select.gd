@@ -1,7 +1,14 @@
 extends Control
 
+signal role_chosen(r:Game.ROLE)
+
+func _ready() -> void:
+	if Game.chosen_role != Game.ROLE.NONE:
+		queue_free()
+
 func advance() -> void:
-	Game.transition_dungeon()
+	role_chosen.emit(Game.chosen_role)
+	queue_free()
 	pass
 
 func _on_barb_pressed() -> void:

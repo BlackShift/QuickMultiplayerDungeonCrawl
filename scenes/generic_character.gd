@@ -1,6 +1,6 @@
 class_name generic_character extends CharacterBody3D
 
-@export var character_scene:PackedScene
+@export var character_role:Game.ROLE = Game.ROLE.BARBARIAN
 var character:Node3D
 
 #Dictionary mapping of animations to play, takes stringname of animation name
@@ -26,7 +26,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func _ready() -> void:
-	character = character_scene.instantiate() as Node3D
+	character = Game.role_scenes[character_role].instantiate() as Node3D
 	add_child(character)
 	if hide_all_equipment:
 		hide_equipment()
