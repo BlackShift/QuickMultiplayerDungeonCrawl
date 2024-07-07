@@ -6,7 +6,7 @@
 [sub_resource type="Resource" id="Resource_x1f5r"]
 script = ExtResource("2_x1ulr")
 name = "LocalHost"
-address = "127.0.0.1:42424"
+address = "127.0.0.1:4350"
 used_slots = 0
 server_ping = 0
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://kaqpa0b1scyq"]
+[gd_scene load_steps=15 format=3 uid="uid://kaqpa0b1scyq"]
 
 [ext_resource type="Script" path="res://scenes/dungeon.gd" id="1_c1lvx"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_hcf2b"]
 [ext_resource type="PackedScene" uid="uid://doj2ak5klioyv" path="res://scenes/example_room.tscn" id="3_xatxy"]
 [ext_resource type="PackedScene" uid="uid://b6yv2mx81lo0q" path="res://ui-elements/character_select.tscn" id="4_4m1da"]
+[ext_resource type="PackedScene" uid="uid://xru4pmadavod" path="res://scenes/generic_character.tscn" id="4_x2ni8"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="7_jc1gi"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="8_vy1ij"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="9_3f6cm"]
@@ -97,5 +98,16 @@ tween_resource = SubResource("Resource_2t5hy")
 inactive_update_mode = 1
 camera_3d_resource = SubResource("Resource_3ylw8")
 follow_offset = Vector3(0, 5.42, 6.47)
+
+[node name="enemies" type="Node3D" parent="."]
+
+[node name="Ted" parent="enemies" instance=ExtResource("4_x2ni8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.0633)
+collision_layer = 1
+collision_mask = 3
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/generic_character.tscn")
+spawn_path = NodePath("../enemies")
 
 [connection signal="role_chosen" from="UI_Layer/CharacterSelect" to="." method="_on_character_select_role_chosen"]

@@ -1,7 +1,7 @@
 extends Node
 
 signal ping_update(s:ServerInfo,p:int)
-const GAME_PORT = 42424
+const GAME_PORT = 4350
 const MAX_CLIENTS = 4
 var server_ping_peer:PacketPeerUDP
 var local_ping_peer:PacketPeerUDP
@@ -22,11 +22,11 @@ func _setupSignals():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
-func _on_peer_connected(id: int):
+func _on_peer_connected(_id: int):
 	connected += 1
 	pass
 
-func _on_peer_disconnected(id: int):
+func _on_peer_disconnected(_id: int):
 	connected -= 1
 	pass
 
@@ -56,7 +56,7 @@ func ping_server_loop():
 	while server_ping_peer:
 		var p = server_ping_peer
 		p.wait()
-		var packet = p.get_packet()
+		p.get_packet()
 		print("Recieved Ping Packet!")
 		var pingback = connected
 		p.set_dest_address(p.get_packet_ip(),p.get_packet_port())
@@ -75,7 +75,7 @@ func query_server(server:ServerInfo):
 	if !ping_hosts.has(server):
 		ping_hosts.append(server)
 	
-	peer.set_dest_address(server.get_ip(),server.get_port()+1)
+	peer.set_dest_address(server.get_ip(IP.TYPE_IPV4),server.get_port()+1)
 	peer.put_var(Time.get_unix_time_from_system())
 	ping_timestamp[server.get_ip()] = Time.get_ticks_msec()
 	print(peer.get_local_port())
@@ -86,7 +86,7 @@ func query_server(server:ServerInfo):
 func join_server(server:ServerInfo):
 	print("Joing Server %s at %s" % [server.name, server.address])
 	var c_peer = ENetMultiplayerPeer.new()
-	c_peer.create_client(server.get_ip(),GAME_PORT)
+	c_peer.create_client(server.get_ip(IP.TYPE_IPV4),GAME_PORT)
 	multiplayer.multiplayer_peer = c_peer
 	_setupSignals()
 	pass
@@ -98,9 +98,9 @@ func host_server():
 	server_ping_peer.bind(GAME_PORT+1)
 	if !server_ping_thread.is_started():
 		server_ping_thread.start(ping_server_loop)
-	
 	var s_peer = ENetMultiplayerPeer.new()
 	s_peer.create_server(GAME_PORT,MAX_CLIENTS)
+	s_peer.set_bind_ip("192.168.4.22")
 	multiplayer.multiplayer_peer = s_peer
 	connected += 1
 	_setupSignals()

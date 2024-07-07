@@ -23,9 +23,12 @@ properties/3/replication_mode = 2
 properties/4/path = NodePath(".:rotation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath(".:velocity")
+properties/5/path = NodePath(".:collision_layer")
 properties/5/spawn = true
-properties/5/replication_mode = 1
+properties/5/replication_mode = 2
+properties/6/path = NodePath(".:collision_mask")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [node name="Node3D" type="CharacterBody3D"]
 collision_layer = 2

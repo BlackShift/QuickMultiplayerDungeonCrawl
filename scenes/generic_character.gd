@@ -1,6 +1,6 @@
 class_name generic_character extends CharacterBody3D
 
-@export var character_role:Game.ROLE = Game.ROLE.BARBARIAN
+@export var character_role:Game.ROLE = Game.ROLE.SKELETON_MINION
 var character:Node3D
 
 #Dictionary mapping of animations to play, takes stringname of animation name
@@ -14,6 +14,7 @@ var character:Node3D
 @export var equipment_filters:Array[String] = []
 enum STATE {NULL,IDLE,IDLE_DOWN,WALK,RUN}
 var state:STATE = STATE.NULL
+var mstate:STATE = STATE.NULL
 signal state_changed(oldState:STATE,newState:STATE)
 
 var animPlayer:AnimationPlayer
@@ -42,26 +43,29 @@ func hide_equipment():
 		b.visible = false
 
 func _process(_delta: float) -> void:
-	match state:
-		STATE.IDLE:
-			if velocity.length()/SPEED > 0.1:
-				change_state(STATE.WALK) 
-			pass
-		STATE.WALK:
-			if velocity.length()/SPEED > 0.5:
-				change_state(STATE.RUN)
-			if velocity.length()/SPEED < 0.1:
-				change_state(STATE.IDLE)
-		STATE.RUN:
-			if velocity.length()/SPEED < 0.5:
-				change_state(STATE.WALK)
-			pass
+	if is_multiplayer_authority():
+		match state:
+			STATE.IDLE:
+				if velocity.length()/SPEED > 0.1:
+					change_state.rpc(STATE.WALK) 
+				pass
+			STATE.WALK:
+				if velocity.length()/SPEED > 0.5:
+					change_state.rpc(STATE.RUN)
+				if velocity.length()/SPEED < 0.1:
+					change_state.rpc(STATE.IDLE)
+			STATE.RUN:
+				if velocity.length()/SPEED < 0.5:
+					change_state.rpc(STATE.WALK)
+				pass
+		pass
 	pass
 
 func _on_animation_finished():
 	if animation_mapping.has(state):
 		animPlayer.play(animation_mapping[state])
 
+@rpc("authority","call_local","unreliable")
 func change_state(newState:STATE):
 	if animation_mapping.has(newState):
 		animPlayer.play(animation_mapping[newState])

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dd7n6kfpoekyo"]
 
-[ext_resource type="PackedScene" uid="uid://cfju3i1ispetc" path="res://addons/kaykit_character_pack_adventures/Characters/gltf/Rogue.glb" id="1_vj4dm"]
+[ext_resource type="PackedScene" uid="uid://cfju3i1ispetc" path="res://addons/kaykit_character_pack_adventures/Characters/gltf/Rogue_Hooded.glb" id="1_vj4dm"]
 
 [node name="Rogue" instance=ExtResource("1_vj4dm")]
 

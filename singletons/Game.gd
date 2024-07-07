@@ -1,14 +1,15 @@
 extends Node
 
 enum STATE {NONE,MENU,MENU_SERVER,C_SELECT,GAME}
-enum ROLE {NONE,BARBARIAN,KNIGHT,MAGE,ROGUE}
+enum ROLE {NONE,BARBARIAN,KNIGHT,MAGE,ROGUE,SKELETON_MINION}
 var chosen_role:ROLE = ROLE.NONE
 var role_scenes:Array[PackedScene] = [
 	null,
 	preload("res://characters/barbarian.tscn"),
 	preload("res://characters/knight.tscn"),
 	preload("res://characters/mage.tscn"),
-	preload("res://characters/rogue.tscn")
+	preload("res://characters/rogue.tscn"),
+	preload("res://characters/skeleton_minion.tscn"),
 ]
 const CHARACTER_SELECT = preload("res://ui-elements/character_select.tscn")
 const DUNGEON = preload("res://scenes/dungeon.tscn")

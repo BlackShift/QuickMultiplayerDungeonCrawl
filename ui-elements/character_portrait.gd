@@ -8,8 +8,3 @@ func _ready() -> void:
 	if character:
 		character_preview.preview = character
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

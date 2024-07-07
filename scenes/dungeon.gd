@@ -38,7 +38,7 @@ func player_joined(id:int):
 		spawn_player.rpc_id(id,Game.chosen_role,multiplayer.get_unique_id())
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _on_character_select_role_chosen(r: int) -> void:
