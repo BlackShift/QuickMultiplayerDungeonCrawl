@@ -14,7 +14,7 @@ var character:Node3D
 @export var equipment_filters:Array[String] = []
 enum STATE {NULL,IDLE,IDLE_DOWN,WALK,RUN}
 var state:STATE = STATE.NULL
-var mstate:STATE = STATE.NULL
+
 signal state_changed(oldState:STATE,newState:STATE)
 
 var animPlayer:AnimationPlayer
